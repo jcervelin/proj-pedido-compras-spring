@@ -1,20 +1,32 @@
 package br.com.bb.compra.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cliente {
 
     private Long id;
     @NotBlank(message = "Nome obrigatório")
     private String nome;
 
-    @Min(value = 18, message = "Deve ser maior de idade")
-    @Max(value = 150, message = "Mentiroso")
-    private int idade;
+    @NotNull(message = "CPF nao pode ser null")
+    @NotEmpty(message = "CPF nao pode ser vazio")
+    private String cpf;
+
+    @NotNull(message = "Email nao pode ser null")
+    @NotEmpty(message = "Email nao pode ser vazio")
+    @Email(message = "Email invalido")
+    private String email;
 
 }

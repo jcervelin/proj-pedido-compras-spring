@@ -4,6 +4,7 @@ import br.com.bb.compra.model.Cliente;
 import br.com.bb.compra.service.ClienteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,17 +24,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ClienteController {
 
-    private final ClienteService clienteService;
+    // Opcoes quando tenho mais de uma implementacao
+    //1- @Qualifier(NOME DA CLASSE COM A PRIMEIRA LETRA MINUSCULA)
+    //2- Incluir no construtor usando o mesmo nome da implementacao que voce  quer
+
+    private final ClienteService clienteServiceImpl;
 
     @GetMapping
     public List<Cliente> clientes() {
-        return clienteService.getClientes();
+        return clienteServiceImpl.getClientes();
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> criarCliente(@Valid Cliente cliente) {
-        final Cliente clienteSalvo = clienteService.salvarCliente(cliente);
-        return ResponseEntity.ok(clienteSalvo);
+    public ResponseEntity<Cliente> criarCliente(@Valid @RequestBody Cliente cliente) {
+        clienteServiceImpl.salvarCliente(cliente);
+        return ResponseEntity.ok(cliente);
     }
 
     //PUT para SALVAR
@@ -70,14 +75,14 @@ public class ClienteController {
         return ResponseEntity.ok().body(cliente);
     }
 
-    private Cliente mergearCliente(Cliente antigo, Cliente novo) {
-        if (novo.getIdade() != 0)
-            antigo.setIdade(novo.getIdade());
-
-        if (StringUtils.hasText(novo.getNome()))
-            antigo.setNome(novo.getNome());
-
-        return antigo;
-    }
+//    private Cliente mergearCliente(Cliente antigo, Cliente novo) {
+//        if (novo.getIdade() != 0)
+//            antigo.setIdade(novo.getIdade());
+//
+//        if (StringUtils.hasText(novo.getNome()))
+//            antigo.setNome(novo.getNome());
+//
+//        return antigo;
+//    }
 
 }

@@ -6,6 +6,6 @@ import br.com.bb.compra.model.Cliente;
 import java.util.List;
 
 public interface ClienteService {
-    Cliente salvarCliente(Cliente cliente);
+    void salvarCliente(Cliente cliente);
     List<Cliente> getClientes();
 }
