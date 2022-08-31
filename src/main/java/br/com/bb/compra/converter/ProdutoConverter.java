@@ -4,10 +4,12 @@ import br.com.bb.compra.model.Produto;
 import br.com.bb.compra.model.entity.ProdutoEntity;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProdutoConverter {
 
-    public static Produto convertTo(ProdutoEntity produto) {
+    public static Produto convertEntityTo(ProdutoEntity produto) {
         Produto p = new Produto();
         p.setDesconto(String.valueOf(produto.getDesconto()));
         p.setDescricao(produto.getDescricao());
@@ -19,7 +21,12 @@ public class ProdutoConverter {
         return p;
     }
 
-    public static ProdutoEntity convertTo(Produto produto) {
+    public static List<Produto> convertEntityTo(List<ProdutoEntity> produtos) {
+        return produtos.stream()
+                .map(ProdutoConverter::convertEntityTo)
+                .collect(Collectors.toList());
+    }
+    public static ProdutoEntity convertProductTo(Produto produto) {
         ProdutoEntity p = new ProdutoEntity();
         p.setDesconto(new BigDecimal(produto.getDesconto()));
         p.setDescricao(produto.getDescricao());
@@ -29,6 +36,12 @@ public class ProdutoConverter {
         p.setNome(produto.getNome());
         p.setPreco(new BigDecimal(produto.getPreco()));
         return p;
+    }
+
+    public static List<ProdutoEntity> convertProductTo(List<Produto> produtos) {
+        return produtos.stream()
+                .map(ProdutoConverter::convertProductTo)
+                .collect(Collectors.toList());
     }
 
 
