@@ -18,16 +18,16 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class ProdutoController {
 
-    private final ProdutoService produtoService;
+    private final ProdutoService produtoServiceClient;
 
     @GetMapping("/{id}")
     public ResponseEntity<Produto> getId(@PathVariable Long id) {
-        return ResponseEntity.ok(produtoService.buscaPorId(id));
+        return ResponseEntity.ok(produtoServiceClient.buscaPorId(id));
     }
 
     @PostMapping
     public ResponseEntity<Produto> salvar(@RequestBody @Valid Produto produto) {
-        return ResponseEntity.ok(produtoService.salvar(produto));
+        return ResponseEntity.ok(produtoServiceClient.salvar(produto));
     }
 
 }
