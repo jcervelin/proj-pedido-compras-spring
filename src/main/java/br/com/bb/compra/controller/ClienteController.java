@@ -27,7 +27,6 @@ public class ClienteController {
     // Opcoes quando tenho mais de uma implementacao
     //1- @Qualifier(NOME DA CLASSE COM A PRIMEIRA LETRA MINUSCULA)
     //2- Incluir no construtor usando o mesmo nome da implementacao que voce  quer
-
     private final ClienteService clienteServiceImpl;
 
     @GetMapping
