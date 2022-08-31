@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,8 +28,10 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     public List<Produto> salvarLista(List<Produto> novoProduto) {
         final List<ProdutoEntity> produtoEntityList = ProdutoConverter.convertProductTo(novoProduto);
-        repository.saveAll(produtoEntityList);
-        return ProdutoConverter.convertEntityTo(produtoEntityList);
+        final List<ProdutoEntity> produtoEntities = new ArrayList<>();
+        final Iterable<ProdutoEntity> iterable = repository.saveAll(produtoEntityList);
+        iterable.forEach(produtoEntities::add);
+        return ProdutoConverter.convertEntityTo(produtoEntities);
     }
 
     @Override
