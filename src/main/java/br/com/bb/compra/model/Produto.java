@@ -1,10 +1,12 @@
 package br.com.bb.compra.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -14,7 +16,8 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Produto {
+@Builder
+public class Produto extends RepresentationModel<Produto> {
 
     private Long id;
 

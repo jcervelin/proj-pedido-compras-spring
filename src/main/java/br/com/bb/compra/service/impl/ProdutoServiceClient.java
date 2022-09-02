@@ -7,6 +7,9 @@ import br.com.bb.compra.model.entity.ProdutoEntity;
 import br.com.bb.compra.repository.ProdutoRepository;
 import br.com.bb.compra.service.ProdutoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +46,16 @@ public class ProdutoServiceClient implements ProdutoService {
     @Transactional(readOnly = true)
     public boolean isEmpty() {
         return false;// quarkusClient.count() == 0;
+    }
+
+    @Override
+    public PagedModel<Produto> listar(String filtro, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public PagedModel<Produto> listar(Pageable pageable) {
+        return null;
     }
 
 
