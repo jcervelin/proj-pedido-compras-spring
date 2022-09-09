@@ -2,12 +2,11 @@ package br.com.bb.compra.service.impl;
 
 import br.com.bb.compra.converter.ProdutoConverter;
 import br.com.bb.compra.model.Produto;
-import br.com.bb.compra.model.assemblers.ProdutoAssembler;
 import br.com.bb.compra.model.entity.ProdutoEntity;
 import br.com.bb.compra.repository.ProdutoRepository;
 import br.com.bb.compra.service.ProdutoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
@@ -20,7 +19,6 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@CacheConfig(cacheNames={"Produtos"})
 public class ProdutoServiceImpl implements ProdutoService {
 
     private final ProdutoRepository repository;
@@ -71,9 +69,9 @@ public class ProdutoServiceImpl implements ProdutoService {
     }
 
     @Override
+    @Cacheable(value = "produtos")
     public Page<ProdutoEntity> listar(Pageable pageable) {
         return  repository.findAll(pageable);
     }
-
 
 }
