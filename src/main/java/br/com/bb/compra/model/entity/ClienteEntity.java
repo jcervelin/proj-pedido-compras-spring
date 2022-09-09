@@ -1,5 +1,6 @@
 package br.com.bb.compra.model.entity;
 
+import br.com.bb.compra.model.enums.PerfilEnum;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +29,9 @@ public class ClienteEntity {
     private String cpf;
     private String email;
 
-
     @JsonIgnoreProperties(allowGetters = true)
     private String senha;
+
+    @Enumerated(EnumType.STRING)
+    private PerfilEnum perfil;
 }

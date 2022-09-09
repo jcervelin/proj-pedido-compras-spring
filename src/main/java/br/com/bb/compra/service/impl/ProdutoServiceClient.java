@@ -49,12 +49,12 @@ public class ProdutoServiceClient implements ProdutoService {
     }
 
     @Override
-    public PagedModel<Produto> listar(String filtro, Pageable pageable) {
+    public Page<ProdutoEntity> listar(String filtro, Pageable pageable) {
         return null;
     }
 
     @Override
-    public PagedModel<Produto> listar(Pageable pageable) {
+    public Page<ProdutoEntity> listar(Pageable pageable) {
         return null;
     }
 

@@ -17,6 +17,6 @@ public interface ProdutoService {
 
     boolean isEmpty();
 
-    PagedModel<Produto> listar(String filtro, Pageable pageable);
-    PagedModel<Produto> listar(Pageable pageable);
+    Page<ProdutoEntity> listar(String filtro, Pageable pageable);
+    Page<ProdutoEntity> listar(Pageable pageable);
 }

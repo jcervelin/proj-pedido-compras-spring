@@ -7,28 +7,23 @@ import br.com.bb.compra.model.entity.ProdutoEntity;
 import br.com.bb.compra.repository.ProdutoRepository;
 import br.com.bb.compra.service.ProdutoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheNames={"Produtos"})
 public class ProdutoServiceImpl implements ProdutoService {
 
     private final ProdutoRepository repository;
-
-    private final ProdutoAssembler produtoAssembler;
-    private final PagedResourcesAssembler<ProdutoEntity> pagedResourcesAssembler;
 
     @Override
     public Produto salvar(Produto novoProduto) {
@@ -60,7 +55,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     }
 
     @Override
-    public PagedModel<Produto> listar(String filtro, Pageable pageable) {
+    public Page<ProdutoEntity> listar(String filtro, Pageable pageable) {
 
         ProdutoEntity produtoFiltro = new ProdutoEntity();
         produtoFiltro.setNome(filtro);
@@ -72,16 +67,12 @@ public class ProdutoServiceImpl implements ProdutoService {
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
 
         final Example<ProdutoEntity> entityExample = Example.of(produtoFiltro, exampleMatcher);
-        final Page<ProdutoEntity> produtoEntities = repository.findAll(entityExample, pageable);
-
-        return pagedResourcesAssembler.toModel(produtoEntities, produtoAssembler);
+        return  repository.findAll(entityExample, pageable);
     }
 
     @Override
-    public PagedModel<Produto> listar(Pageable pageable) {
-        final Page<ProdutoEntity> produtoEntities = repository.findAll(pageable);
-        final PagedModel<Produto> produtos = pagedResourcesAssembler.toModel(produtoEntities, produtoAssembler);
-        return produtos;
+    public Page<ProdutoEntity> listar(Pageable pageable) {
+        return  repository.findAll(pageable);
     }
 
 
