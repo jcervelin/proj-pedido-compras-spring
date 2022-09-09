@@ -11,6 +11,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     private final ProdutoRepository repository;
 
     @Override
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public Produto salvar(Produto novoProduto) {
         final ProdutoEntity produtoEntity = ProdutoConverter.convertProductTo(novoProduto);
         final ProdutoEntity produtoSalvo = repository.save(produtoEntity);

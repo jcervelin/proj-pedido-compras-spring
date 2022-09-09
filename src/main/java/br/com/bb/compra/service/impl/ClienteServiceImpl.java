@@ -1,13 +1,17 @@
 package br.com.bb.compra.service.impl;
 
+import br.com.bb.compra.converter.ClienteConverter;
 import br.com.bb.compra.model.Cliente;
 import br.com.bb.compra.model.entity.ClienteEntity;
+import br.com.bb.compra.model.enums.PerfilEnum;
 import br.com.bb.compra.repository.ClienteRepository;
 import br.com.bb.compra.service.ClienteService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -15,17 +19,18 @@ import java.util.stream.Collectors;
 public class ClienteServiceImpl implements ClienteService {
 
     private final ClienteRepository clienteRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void salvarCliente(Cliente cliente) {
 
-        final ClienteEntity entity = ClienteEntity.builder()
-                .email(cliente.getEmail())
-                .cpf(cliente.getCpf())
-                .nome(cliente.getNome())
-                .build();
-        clienteRepository.save(entity);
-        cliente.setId(entity.getId());
+        if (Objects.isNull(cliente.getId())) {
+            cliente.setSenha(passwordEncoder.encode(cliente.getSenha()));
+        }
+
+        cliente.setPerfil(PerfilEnum.CLIENTE);
+
+        clienteRepository.save(ClienteConverter.convertDtoTo(cliente));
     }
 
     @Override

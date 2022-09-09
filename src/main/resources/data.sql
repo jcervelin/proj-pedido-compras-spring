@@ -17,5 +17,5 @@ insert into tb_produto (`nome`, `descricao`, `preco`, `desconto`, `estoque`, fot
 insert into tb_produto (`nome`, `descricao`, `preco`, `desconto`, `estoque`, foto) values ('Almofada','Melhor Almofada do mundo.',150.5,10.4,50,'foto-Almofada.jpg');
 insert into tb_produto (`nome`, `descricao`, `preco`, `desconto`, `estoque`, foto) values ('Lustre','Melhor Lustre do mundo.',150.5,10.4,50,'foto-Lustre.jpg');
 
--- 123mudar 779a923d69b2e072747b11975ba86949de167037
-insert into tb_cliente (`nome`, `cpf`, `email`, `senha`, `perfil`) values ('Joao','53487604674','joao@gmail.com','779a923d69b2e072747b11975ba86949de167037','ADMIN');
+-- 123mudar $2a$10$RIXeAfFpWYaNIxVK/D9I2eQgB6YECgBDxt1AcolBpjR9QjGOkCOCa
+insert into tb_cliente (`nome`, `cpf`, `email`, `senha`, `perfil`) values ('Joao','53487604674','joao@gmail.com','$2a$10$RIXeAfFpWYaNIxVK/D9I2eQgB6YECgBDxt1AcolBpjR9QjGOkCOCa','ADMIN');
